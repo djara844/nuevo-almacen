@@ -1,0 +1,7 @@
+/env
+/app/__pycache__
+/app/migrations
+./marios/__pycache__
+django5.jpg
+*.sqlite3
+db.sqlite3
