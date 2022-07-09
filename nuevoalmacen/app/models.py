@@ -1,4 +1,3 @@
-from unicodedata import name
 from django.db import models
 
 
@@ -24,7 +23,9 @@ class Product(models.Model):
     code = models.CharField(max_length=10)
     comments = models.CharField(max_length=260)
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
-    supplier = models.ForeignKey(Suppler, on_delete=models.CASCADE, blank=True, default="")
+    supplier = models.ForeignKey(
+        Suppler, on_delete=models.CASCADE, blank=True, default=""
+    )
     created_at = models.DateTimeField("date created")
     updated_at = models.DateTimeField("date updated")
 
@@ -41,7 +42,9 @@ class Customer(models.Model):
 
 class Transaction(models.Model):
     total = models.FloatField()
-    customer = models.ForeignKey(Customer, on_delete=models.CASCADE, blank=True, default="")
+    customer = models.ForeignKey(
+        Customer, on_delete=models.CASCADE, blank=True, default=""
+    )
     is_invoice = models.BooleanField()
     created_at = models.DateTimeField("date created")
     updated_at = models.DateTimeField("date updated")
@@ -52,4 +55,3 @@ class TransactionProduct(models.Model):
     transaction = models.ForeignKey(Transaction, on_delete=models.CASCADE)
     created_at = models.DateTimeField("date created")
     updated_at = models.DateTimeField("date updated")
-
