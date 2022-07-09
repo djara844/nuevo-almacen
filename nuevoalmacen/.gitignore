@@ -2,6 +2,8 @@
 /app/__pycache__
 /app/migrations
 /nuevoalmacen/__pycache__
-django5.jpg
 *.sqlite3
 db.sqlite3
+
+# **/__pycache__/
+# *.pyc
