@@ -15,10 +15,20 @@ class Category(models.Model):
 
 
 class Suppler(models.Model):
+
+    TYPES_DOCUMENTS = (
+        ("0", "Cédula de ciudadania"),
+        ("1", "Cédula de extranjeria"),
+        ("2", "NIT"),
+        ("3", "Pasaporte"),
+        ("4", "RUT"),
+    )
+
     name = models.CharField("Nombre", max_length=200)
     phone = models.CharField("Teléfono", max_length=10)
     adress = models.CharField("Dirección", max_length=200)
-    rut = models.CharField("RUT", max_length=15)
+    type_document = models.CharField("Tipo de documento", max_length=1, choices=TYPES_DOCUMENTS)
+    document = models.CharField("Número de documento", max_length=15)
     created_at = models.DateTimeField("Fecha de creación", auto_now_add=True)
     updated_at = models.DateTimeField("fecha de actualización", auto_now=True)
 
@@ -52,10 +62,19 @@ class Product(models.Model):
 
 
 class Customer(models.Model):
+
+    TYPES_DOCUMENTS = (
+        ("0", "Cédula de ciudadania"),
+        ("1", "Cédula de extranjeria"),
+        ("2", "NIT"),
+        ("3", "Pasaporte"),
+        ("4", "RUT"),
+    )
+
     name = models.CharField("Nombre", max_length=200)
     phone = models.CharField("Teléfono", max_length=10)
     address = models.CharField("Dirección", max_length=200)
-    document_type = models.CharField("Tipo de documento", max_length=20)
+    document_type = models.CharField("Tipo de documento", max_length=1, choices=TYPES_DOCUMENTS)
     document = models.CharField("Número de documento", max_length=15)
     created_at = models.DateTimeField("Fecha de creación", auto_now_add=True)
     updated_at = models.DateTimeField("fecha de actualización", auto_now=True)
