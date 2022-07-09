@@ -2,56 +2,98 @@ from django.db import models
 
 
 class Category(models.Model):
-    name = models.CharField(max_length=200)
-    created_at = models.DateTimeField("date created")
-    updated_at = models.DateTimeField("date updated")
+    name = models.CharField("Nombre", max_length=200)
+    created_at = models.DateTimeField("Fecha de creación", auto_now_add=True)
+    updated_at = models.DateTimeField("fecha de actualización", auto_now=True)
+   
+    class Meta:
+        verbose_name = "Categoría"
+        verbose_name_plural = "Categorías"
+
+    def __str__(self):
+        return self.name
 
 
 class Suppler(models.Model):
-    name = models.CharField(max_length=200)
-    phone = models.IntegerField(max_length=10)
-    adress = models.CharField(max_length=200)
-    rut = models.IntegerField(max_length=15)
-    created_at = models.DateTimeField("date created")
-    updated_at = models.DateTimeField("date updated")
+    name = models.CharField("Nombre", max_length=200)
+    phone = models.CharField("Teléfono", max_length=10)
+    adress = models.CharField("Dirección", max_length=200)
+    rut = models.CharField("RUT", max_length=15)
+    created_at = models.DateTimeField("Fecha de creación", auto_now_add=True)
+    updated_at = models.DateTimeField("fecha de actualización", auto_now=True)
+
+    class Meta:
+        verbose_name = "Proveedor"
+        verbose_name_plural = "proveedores"
+
+    def __str__(self):
+        return self.name
 
 
 class Product(models.Model):
-    name = models.CharField(max_length=200)
-    price = models.FloatField()
-    stock = models.IntegerField(default=1)
-    code = models.CharField(max_length=10)
-    comments = models.CharField(max_length=260)
+    name = models.CharField("Nombre", max_length=200)
+    price = models.FloatField("Precio")
+    stock = models.IntegerField("Stock",default=1)
+    code = models.CharField("Código",max_length=10)
+    comments = models.CharField("Comentarios",max_length=260)
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     supplier = models.ForeignKey(
         Suppler, on_delete=models.CASCADE, blank=True, default=""
     )
-    created_at = models.DateTimeField("date created")
-    updated_at = models.DateTimeField("date updated")
+    created_at = models.DateTimeField("Fecha de creación", auto_now_add=True)
+    updated_at = models.DateTimeField("fecha de actualización", auto_now=True)
+
+    class Meta:
+        verbose_name = "Producto"
+        verbose_name_plural = "Productos"
+
+    def __str__(self):
+        return self.name
 
 
 class Customer(models.Model):
-    name = models.CharField(max_length=200)
-    phone = models.IntegerField(max_length=10)
-    address = models.CharField(max_length=200)
-    document = models.IntegerField(max_length=15)
-    document_type = models.CharField(max_length=20)
-    created_at = models.DateTimeField("date created")
-    updated_at = models.DateTimeField("date updated")
+    name = models.CharField("Nombre", max_length=200)
+    phone = models.CharField("Teléfono", max_length=10)
+    address = models.CharField("Dirección", max_length=200)
+    document_type = models.CharField("Tipo de documento", max_length=20)
+    document = models.CharField("Número de documento", max_length=15)
+    created_at = models.DateTimeField("Fecha de creación", auto_now_add=True)
+    updated_at = models.DateTimeField("fecha de actualización", auto_now=True)
+
+    class Meta:
+        verbose_name = "Cliente"
+        verbose_name_plural = "Clientes"
+
+    def __str__(self):
+        return self.name
 
 
 class Transaction(models.Model):
-    total = models.FloatField()
+    total = models.FloatField("Total")
     customer = models.ForeignKey(
         Customer, on_delete=models.CASCADE, blank=True, default=""
     )
-    is_invoice = models.BooleanField()
-    created_at = models.DateTimeField("date created")
-    updated_at = models.DateTimeField("date updated")
+    is_invoice = models.BooleanField("¿Facturable?")
+    created_at = models.DateTimeField("Fecha de creación", auto_now_add=True)
+    updated_at = models.DateTimeField("fecha de actualización", auto_now=True)
+
+    class Meta:
+        verbose_name = "Venta"
+        verbose_name_plural = "Ventas"
+
+    def __str__(self):
+        return str(self.id)
 
 
 class TransactionProduct(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
     transaction = models.ForeignKey(Transaction, on_delete=models.CASCADE)
-    created_at = models.DateTimeField("date created")
-    updated_at = models.DateTimeField("date updated")
+    created_at = models.DateTimeField("Fecha de creación", auto_now_add=True)
+    updated_at = models.DateTimeField("fecha de actualización", auto_now=True)
+
+    class Meta:
+        verbose_name = "Venta-Producto"
+        verbose_name_plural = "Ventas-Prodcutos"
+
+    def __str__(self):
+        return str(self.id)

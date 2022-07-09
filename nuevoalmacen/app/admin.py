@@ -14,5 +14,3 @@ admin.site.register(Product)
 admin.site.register(Customer)
 admin.site.register(Transaction)
 admin.site.register(TransactionProduct)
-
-
