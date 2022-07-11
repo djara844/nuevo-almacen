@@ -97,6 +97,8 @@ class Transaction(models.Model):
         Customer, on_delete=models.CASCADE, blank=True, default=""
     )
     is_invoice = models.BooleanField("¿Facturable?")
+    paid = models.BooleanField("¿Pagada?")
+    detail = models.CharField("Detalles", max_length=200)
     created_at = models.DateTimeField("Fecha de creación", auto_now_add=True)
     updated_at = models.DateTimeField("fecha de actualización", auto_now=True)
 
@@ -120,3 +122,62 @@ class TransactionProduct(models.Model):
 
     def __str__(self):
         return str(self.id)
+
+
+class Debt(models.Model):
+    total = models.FloatField("Total")
+    expiration_date = models.DateTimeField("Fecha de expiración")
+    supplier = models.ForeignKey(Suppler, on_delete=models.CASCADE)
+    pail = models.BooleanField("¿Pagada?")
+    detail = models.CharField("Detalles", max_length=200, blank=True, default="")
+    created_at = models.DateTimeField("Fecha de creación", auto_now_add=True)
+    updated_at = models.DateTimeField("fecha de actualización", auto_now=True)
+
+    class Meta:
+        verbose_name = "Cuenta por pagar"
+        verbose_name_plural = "Cuentas por pagar"
+
+    def __str__(self):
+        return str(self.id)
+
+
+class DebtProduct(models.Model):
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    debt = models.ForeignKey(Debt, on_delete=models.CASCADE)
+    created_at = models.DateTimeField("Fecha de creación", auto_now_add=True)
+    updated_at = models.DateTimeField("fecha de actualización", auto_now=True)
+
+    class Meta:
+        verbose_name = "Cuenta por pagar - Producto"
+        verbose_name_plural = "Cuentas por pagar - Productos"
+
+    def __str__(self):
+        return str(self.id)
+
+
+class Cashregister(models.Model):
+    total = models.FloatField("Total")
+    detail = models.CharField("Detalles", max_length=200, blank=True, default="")
+    created_at = models.DateTimeField("Fecha de creación", auto_now_add=True)
+    updated_at = models.DateTimeField("fecha de actualización", auto_now=True)
+
+    class Meta:
+        verbose_name = "Venta diaria"
+        verbose_name_plural = "Ventas diarias"
+
+    def __str__(self):
+        return str(self.id)
+
+
+# class CashregisterProduct:
+#     product = models.ForeignKey(Product, on_delete=models.CASCADE)
+#     cashregister = models.ForeignKey(Cashregister, on_delete=models.CASCADE)
+#     created_at = models.DateTimeField("Fecha de creación", auto_now_add=True)
+#     updated_at = models.DateTimeField("fecha de actualización", auto_now=True)
+
+#     class Meta:
+#         verbose_name = "Caja registradora - Producto"
+#         verbose_name_plural = "Cajas registradoras - Productos"
+
+#     def __str__(self):
+#         return str(self.id)
