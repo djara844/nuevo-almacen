@@ -11,10 +11,12 @@ from .models import TransactionProduct
 class TransactionProductInline(admin.StackedInline):
     model = TransactionProduct
     extra = 1
+    
 
 
 class TransactionAdmin(admin.ModelAdmin):
     inlines = [TransactionProductInline]
+    list_display = ("id", "customer","is_invoice","total")
 
 
 admin.site.register(Category)
