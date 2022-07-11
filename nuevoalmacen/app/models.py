@@ -98,7 +98,7 @@ class Transaction(models.Model):
     )
     is_invoice = models.BooleanField("¿Facturable?")
     paid = models.BooleanField("¿Pagada?")
-    detail = models.CharField("Detalles", max_length=200)
+    detail = models.CharField("Detalles", max_length=200, blank=True, default="")
     created_at = models.DateTimeField("Fecha de creación", auto_now_add=True)
     updated_at = models.DateTimeField("fecha de actualización", auto_now=True)
 
@@ -169,15 +169,15 @@ class Cashregister(models.Model):
         return str(self.id)
 
 
-# class CashregisterProduct:
-#     product = models.ForeignKey(Product, on_delete=models.CASCADE)
-#     cashregister = models.ForeignKey(Cashregister, on_delete=models.CASCADE)
-#     created_at = models.DateTimeField("Fecha de creación", auto_now_add=True)
-#     updated_at = models.DateTimeField("fecha de actualización", auto_now=True)
+class CashregisterProduct(models.Model):
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    cashregister = models.ForeignKey(Cashregister, on_delete=models.CASCADE)
+    created_at = models.DateTimeField("Fecha de creación", auto_now_add=True)
+    updated_at = models.DateTimeField("fecha de actualización", auto_now=True)
 
-#     class Meta:
-#         verbose_name = "Caja registradora - Producto"
-#         verbose_name_plural = "Cajas registradoras - Productos"
+    class Meta:
+        verbose_name = "Ventas diarias - Producto"
+        verbose_name_plural = "Ventas diarias - Productos"
 
-#     def __str__(self):
-#         return str(self.id)
+    def __str__(self):
+        return str(self.id)
