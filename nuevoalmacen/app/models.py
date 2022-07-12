@@ -17,18 +17,18 @@ class Category(models.Model):
 class Suppler(models.Model):
 
     TYPES_DOCUMENTS = (
-        ("0", "Cédula de ciudadania"),
-        ("1", "Cédula de extranjeria"),
-        ("2", "NIT"),
-        ("3", "Pasaporte"),
-        ("4", "RUT"),
+        ("CC", "Cédula de ciudadania"),
+        ("CE", "Cédula de extranjeria"),
+        ("NIT", "NIT"),
+        ("Pasaporte", "Pasaporte"),
+        ("RUT", "RUT"),
     )
 
     name = models.CharField("Nombre", max_length=200)
     phone = models.CharField("Teléfono", max_length=10)
     adress = models.CharField("Dirección", max_length=200)
     type_document = models.CharField(
-        "Tipo de documento", max_length=1, choices=TYPES_DOCUMENTS
+        "Tipo de documento", max_length=9, choices=TYPES_DOCUMENTS
     )
     document = models.CharField("Número de documento", max_length=15)
     created_at = models.DateTimeField("Fecha de creación", auto_now_add=True)
@@ -48,7 +48,7 @@ class Product(models.Model):
     stock = models.IntegerField("Stock", default=1)
     code = models.CharField("Código", max_length=10)
     comments = models.CharField("Comentarios", max_length=260)
-    category = models.ForeignKey(Category, on_delete=models.CASCADE, verbose_name="Categorías")
+    category = models.ForeignKey(Category, on_delete=models.CASCADE, verbose_name="Categoría")
     supplier = models.ForeignKey(
         Suppler, on_delete=models.CASCADE, verbose_name="Proveedor", blank=True, default=""
     )
@@ -66,18 +66,18 @@ class Product(models.Model):
 class Customer(models.Model):
 
     TYPES_DOCUMENTS = (
-        ("0", "Cédula de ciudadania"),
-        ("1", "Cédula de extranjeria"),
-        ("2", "NIT"),
-        ("3", "Pasaporte"),
-        ("4", "RUT"),
+        ("CC", "Cédula de ciudadania"),
+        ("CE", "Cédula de extranjeria"),
+        ("NIT", "NIT"),
+        ("Pasaporte", "Pasaporte"),
+        ("RUT", "RUT"),
     )
 
     name = models.CharField("Nombre", max_length=200)
     phone = models.CharField("Teléfono", max_length=10)
     address = models.CharField("Dirección", max_length=200)
     document_type = models.CharField(
-        "Tipo de documento", max_length=1, choices=TYPES_DOCUMENTS
+        "Tipo de documento", max_length=9, choices=TYPES_DOCUMENTS
     )
     document = models.CharField("Número de documento", max_length=15)
     created_at = models.DateTimeField("Fecha de creación", auto_now_add=True)
@@ -94,7 +94,7 @@ class Customer(models.Model):
 class Transaction(models.Model):
     total = models.FloatField("Total")
     customer = models.ForeignKey(
-        Customer, on_delete=models.CASCADE, blank=True, default=""
+        Customer, on_delete=models.CASCADE, blank=True, default="", verbose_name="Cliente"
     )
     is_invoice = models.BooleanField("¿Facturable?")
     paid = models.BooleanField("¿Pagada?")
@@ -111,8 +111,8 @@ class Transaction(models.Model):
 
 
 class TransactionProduct(models.Model):
-    product = models.ForeignKey(Product, on_delete=models.CASCADE)
-    transaction = models.ForeignKey(Transaction, on_delete=models.CASCADE)
+    product = models.ForeignKey(Product, on_delete=models.CASCADE, verbose_name="Producto")
+    transaction = models.ForeignKey(Transaction, on_delete=models.CASCADE, verbose_name="Venta")
     created_at = models.DateTimeField("Fecha de creación", auto_now_add=True)
     updated_at = models.DateTimeField("fecha de actualización", auto_now=True)
 
@@ -127,7 +127,7 @@ class TransactionProduct(models.Model):
 class Debt(models.Model):
     total = models.FloatField("Total")
     expiration_date = models.DateTimeField("Fecha de expiración")
-    supplier = models.ForeignKey(Suppler, on_delete=models.CASCADE)
+    supplier = models.ForeignKey(Suppler, on_delete=models.CASCADE, verbose_name="Proveedor")
     pail = models.BooleanField("¿Pagada?")
     detail = models.CharField("Detalles", max_length=200, blank=True, default="")
     created_at = models.DateTimeField("Fecha de creación", auto_now_add=True)
@@ -142,8 +142,8 @@ class Debt(models.Model):
 
 
 class DebtProduct(models.Model):
-    product = models.ForeignKey(Product, on_delete=models.CASCADE)
-    debt = models.ForeignKey(Debt, on_delete=models.CASCADE)
+    product = models.ForeignKey(Product, on_delete=models.CASCADE, verbose_name="Producto")
+    debt = models.ForeignKey(Debt, on_delete=models.CASCADE, verbose_name="Cuenta por pagar")
     created_at = models.DateTimeField("Fecha de creación", auto_now_add=True)
     updated_at = models.DateTimeField("fecha de actualización", auto_now=True)
 
@@ -170,8 +170,8 @@ class Cashregister(models.Model):
 
 
 class CashregisterProduct(models.Model):
-    product = models.ForeignKey(Product, on_delete=models.CASCADE)
-    cashregister = models.ForeignKey(Cashregister, on_delete=models.CASCADE)
+    product = models.ForeignKey(Product, on_delete=models.CASCADE, verbose_name="Producto")
+    cashregister = models.ForeignKey(Cashregister, on_delete=models.CASCADE, verbose_name="Venta diaria")
     created_at = models.DateTimeField("Fecha de creación", auto_now_add=True)
     updated_at = models.DateTimeField("fecha de actualización", auto_now=True)
 
