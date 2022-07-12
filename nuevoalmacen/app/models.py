@@ -48,9 +48,9 @@ class Product(models.Model):
     stock = models.IntegerField("Stock", default=1)
     code = models.CharField("Código", max_length=10)
     comments = models.CharField("Comentarios", max_length=260)
-    category = models.ForeignKey(Category, on_delete=models.CASCADE)
+    category = models.ForeignKey(Category, on_delete=models.CASCADE, verbose_name="Categorías")
     supplier = models.ForeignKey(
-        Suppler, on_delete=models.CASCADE, blank=True, default=""
+        Suppler, on_delete=models.CASCADE, verbose_name="Proveedor", blank=True, default=""
     )
     created_at = models.DateTimeField("Fecha de creación", auto_now_add=True)
     updated_at = models.DateTimeField("fecha de actualización", auto_now=True)
@@ -60,7 +60,7 @@ class Product(models.Model):
         verbose_name_plural = "Productos"
 
     def __str__(self):
-        return self.name
+        return f"{self.name} - {self.price}"
 
 
 class Customer(models.Model):
