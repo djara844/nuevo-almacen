@@ -17,18 +17,18 @@ class Category(models.Model):
 class Suppler(models.Model):
 
     TYPES_DOCUMENTS = (
-        ("0", "Cédula de ciudadania"),
-        ("1", "Cédula de extranjeria"),
-        ("2", "NIT"),
-        ("3", "Pasaporte"),
-        ("4", "RUT"),
+        ("CC", "Cédula de ciudadania"),
+        ("CE", "Cédula de extranjeria"),
+        ("NIT", "NIT"),
+        ("Pasaporte", "Pasaporte"),
+        ("RUT", "RUT"),
     )
 
     name = models.CharField("Nombre", max_length=200)
     phone = models.CharField("Teléfono", max_length=10)
     adress = models.CharField("Dirección", max_length=200)
     type_document = models.CharField(
-        "Tipo de documento", max_length=1, choices=TYPES_DOCUMENTS
+        "Tipo de documento", max_length=9, choices=TYPES_DOCUMENTS
     )
     document = models.CharField("Número de documento", max_length=15)
     created_at = models.DateTimeField("Fecha de creación", auto_now_add=True)
@@ -66,18 +66,18 @@ class Product(models.Model):
 class Customer(models.Model):
 
     TYPES_DOCUMENTS = (
-        ("0", "Cédula de ciudadania"),
-        ("1", "Cédula de extranjeria"),
-        ("2", "NIT"),
-        ("3", "Pasaporte"),
-        ("4", "RUT"),
+        ("CC", "Cédula de ciudadania"),
+        ("CE", "Cédula de extranjeria"),
+        ("NIT", "NIT"),
+        ("Pasaporte", "Pasaporte"),
+        ("RUT", "RUT"),
     )
 
     name = models.CharField("Nombre", max_length=200)
     phone = models.CharField("Teléfono", max_length=10)
     address = models.CharField("Dirección", max_length=200)
     document_type = models.CharField(
-        "Tipo de documento", max_length=1, choices=TYPES_DOCUMENTS
+        "Tipo de documento", max_length=9, choices=TYPES_DOCUMENTS
     )
     document = models.CharField("Número de documento", max_length=15)
     created_at = models.DateTimeField("Fecha de creación", auto_now_add=True)
