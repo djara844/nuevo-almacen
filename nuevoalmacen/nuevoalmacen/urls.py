@@ -23,15 +23,27 @@ from app.views import (
     newProduct,
     editProduct,
     deleteProduct,
+    transactions,
+    transactionDetail,
+    newTransaction,
+    editTransaction,
+    deleteTransaction,
 )
 
 
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("", home, name="index"),
+    # Products Routes
     path("products/", products, name="products"),
     path("product-details/<int:id>", productDetail),
     path("new-product/", newProduct, name="newProduct"),
     path("edit-product/<int:id>", editProduct, name="editProduct"),
     path("delete-product/<int:id>", deleteProduct, name="editProduct"),
+    # Transactions Routes
+    path("facturas/", transactions, name="transactions"),
+    path("detalles-factura/<int:id>", transactionDetail),
+    path("nueva-factura", newTransaction, name="newTransaction"),
+    path("editar-factura/<int:id>", editTransaction, name="editTransaction"),
+    path("eliminar-factura/<int:id>", deleteTransaction, name="deleteTransaction"),
 ]

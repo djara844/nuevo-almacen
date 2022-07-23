@@ -1,7 +1,9 @@
 from dataclasses import fields
+from pyexpat import model
 from django.forms import ModelForm, TextInput
 
 from app.models import Product
+from app.models import Transaction
 
 
 class ProductForm(ModelForm):
@@ -16,3 +18,9 @@ class ProductForm(ModelForm):
         #     "type": "number"
         #   })
         # }
+
+
+class TransactionForm(ModelForm):
+    class Meta:
+        model = Transaction
+        fields = "__all__"
