@@ -73,7 +73,8 @@ def editProduct(request, id):
     return render(request, "products/edit-product.html", {"formaProduct": formaProduct})
 
 
-def deleteProduct(id):
+def deleteProduct(request, id):
+    
     try:
         product = get_object_or_404(Product, pk=id)
         if product:

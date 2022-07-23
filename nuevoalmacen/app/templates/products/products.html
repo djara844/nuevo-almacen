@@ -9,7 +9,7 @@
 <body>
     <h1>Nuevo Almacen</h1>
     <div>
-        <a href="/new-product">Nuevo producto</a>
+        <a href="{% url 'newProduct' %}">Nuevo producto</a>
     </div>
 
     <div>
@@ -52,10 +52,12 @@
                     <td>
                         {{ product.stock }}
                     </td>
-                    <td><a href="/product-details/{{product.id}}">Ver</a></td>
-                    <td><a href="/edit-product/{{product.id}}">Editar</a></td>
-                    <td><a href="/delete-product/{{product.id}}">Eliminar</a></td>
+                    <td><a href="{% url 'productDetail' product.id %}">Ver</a></td>
+                    <td><a href="{% url 'editProduct' product.id %}">Editar</a></td>
+                    <td><a href="{% url 'deleteProduct' product.id %}">Eliminar</a></td>
+                    
                 </tr>
+                   
                 {% endfor %}
             </tbody>
         </table>

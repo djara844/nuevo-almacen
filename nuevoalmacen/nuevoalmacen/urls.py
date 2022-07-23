@@ -36,10 +36,10 @@ urlpatterns = [
     path("", home, name="index"),
     # Products Routes
     path("products/", products, name="products"),
-    path("product-details/<int:id>", productDetail),
+    path("product-details/<int:id>", productDetail, name="productDetail"),
     path("new-product/", newProduct, name="newProduct"),
     path("edit-product/<int:id>", editProduct, name="editProduct"),
-    path("delete-product/<int:id>", deleteProduct, name="editProduct"),
+    path("delete-product/<int:id>", deleteProduct, name="deleteProduct"),
     # Transactions Routes
     path("facturas/", transactions, name="transactions"),
     path("detalles-factura/<int:id>", transactionDetail),
