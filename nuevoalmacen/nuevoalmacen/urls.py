@@ -23,7 +23,7 @@ from app.views import (
     newProduct,
     editProduct,
     deleteProduct,
-    transactions,
+    TransactionsIndexView,
     transactionDetail,
     newTransaction,
     editTransaction,
@@ -41,9 +41,9 @@ urlpatterns = [
     path("edit-product/<int:id>", editProduct, name="editProduct"),
     path("delete-product/<int:id>", deleteProduct, name="deleteProduct"),
     # Transactions Routes
-    path("facturas/", transactions, name="transactions"),
-    path("detalles-factura/<int:id>", transactionDetail),
-    path("nueva-factura", newTransaction, name="newTransaction"),
-    path("editar-factura/<int:id>", editTransaction, name="editTransaction"),
-    path("eliminar-factura/<int:id>", deleteTransaction, name="deleteTransaction"),
+    path("ventas/", TransactionsIndexView.as_view(), name="transactions"),
+    path("detalles-venta/<int:id>", transactionDetail, name="transactionDetail"),
+    path("nueva-venta", newTransaction, name="newTransaction"),
+    path("editar-venta/<int:id>", editTransaction, name="editTransaction"),
+    path("eliminar-venta/<int:id>", deleteTransaction, name="deleteTransaction"),
 ]

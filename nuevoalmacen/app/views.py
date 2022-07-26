@@ -2,9 +2,14 @@ from itertools import product
 from django.forms import modelform_factory
 from django.http import HttpResponse, Http404
 from django.shortcuts import get_object_or_404, redirect, render
+from django.views import generic
+from django.core.serializers.json import DjangoJSONEncoder
 
-from app.models import Product
+
+from app.models import Product, Transaction, TransactionProduct
 from app.forms import ProductForm
+
+import json
 
 # Create your views here.
 def home(request):
@@ -74,7 +79,7 @@ def editProduct(request, id):
 
 
 def deleteProduct(request, id):
-    
+
     try:
         product = get_object_or_404(Product, pk=id)
         if product:
@@ -86,12 +91,45 @@ def deleteProduct(request, id):
 
 
 # Transaction functions
-def transactions(request):
-    return render(request, "transactions/transactions.html")
+class TransactionsIndexView(generic.ListView):
+    template_name = "transactions/transactions.html"
+    context_object_name = "transactions"
+
+    def get_queryset(self):
+        """Return the list of transactions"""
+        return Transaction.objects.order_by("id")
+
+
+class TransactionDetail(generic.DetailView):
+    model = (
+        Transaction,
+        TransactionProduct,
+    )
+    template_name = "transactions/transaction-details.html"
 
 
 def transactionDetail(request, id):
-    return render(request, "transactions/transaction-detail.html")
+    products_ids = []
+    products = []
+    try:
+        transaction = get_object_or_404(Transaction, pk=id)
+        transaction_product_id = TransactionProduct.objects.filter(
+            transaction_id=transaction
+        ).values()
+
+        for id_product in transaction_product_id:
+            products_ids.append(id_product["product_id"])
+
+        for i in products_ids:
+            products.append(Product.objects.filter(id=i).values()[0])
+
+    except Transaction.DoesNotExist:
+        raise Http404("La venta no existe")
+    return render(
+        request,
+        "transactions/transaction-details.html",
+        {"transaction": transaction, "products": products},
+    )
 
 
 def newTransaction(request):

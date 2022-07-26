@@ -132,10 +132,10 @@ class TransactionProduct(models.Model):
 
     class Meta:
         verbose_name = "Venta-Producto"
-        verbose_name_plural = "Ventas-Prodcutos"
+        verbose_name_plural = "Ventas-Productos"
 
     def __str__(self):
-        return str(self.id)
+        return str(self.product_id)
 
 
 class Debt(models.Model):

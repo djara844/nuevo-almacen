@@ -4,10 +4,71 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Facturas</title>
+    <title>Ventas</title>
 </head>
 <body>
-    <h1>Facturas</h1>
+    <h1>Ventas</h1>
+    <div>
+        <table border="1">
+            <thead>
+                <tr>
+                    <th>
+                        Id
+                    </th>
+                    <th>
+                        Total
+                    </th>
+                    <th>
+                        Cliente
+                    </th>
+                    <th>
+                        ¿Facturable?
+                    </th>
+                    <th>
+                        ¿Esta paga?
+                    </th>
+                    <th>
+                        Detalles
+                    </th>
+                    <th>
+                        Acciones
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for transaction in transactions %}
+                <tr>
+                    <td>
+                        {{ transaction.id }}
+                    </td>
+                    <td>
+                        {{ transaction.total }}
+                    </td>
+                    <td>
+                        {{ transaction.customer }}
+                    </td>
+                    <td>
+                        {{ transaction.is_invoice }}
+                    </td>
+                    <td>
+                        {{ transaction.paid }}
+                    </td>
+                    <td>
+                        {{ transaction.detail }}
+                    </td>
+                    <td>
+                        <a href="{% url 'transactionDetail' transaction.id %}">Ver detalles</a>
+                    </td>
+                </tr>
+                   
+                {% endfor %}
+            </tbody>
+        </table>
+        <div>
+            <a href="{% url 'index' %}">Inicio</a>
+        </div>
+        
+    </div>
     
 </body>
 </html>
