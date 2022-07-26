@@ -16,6 +16,34 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
+from app.views import (
+    products,
+    productDetail,
+    home,
+    newProduct,
+    editProduct,
+    deleteProduct,
+    TransactionsIndexView,
+    transactionDetail,
+    newTransaction,
+    editTransaction,
+    deleteTransaction,
+)
+
+
 urlpatterns = [
     path("admin/", admin.site.urls),
+    path("", home, name="index"),
+    # Products Routes
+    path("products/", products, name="products"),
+    path("product-details/<int:id>", productDetail, name="productDetail"),
+    path("new-product/", newProduct, name="newProduct"),
+    path("edit-product/<int:id>", editProduct, name="editProduct"),
+    path("delete-product/<int:id>", deleteProduct, name="deleteProduct"),
+    # Transactions Routes
+    path("ventas/", TransactionsIndexView.as_view(), name="transactions"),
+    path("detalles-venta/<int:id>", transactionDetail, name="transactionDetail"),
+    path("nueva-venta", newTransaction, name="newTransaction"),
+    path("editar-venta/<int:id>", editTransaction, name="editTransaction"),
+    path("eliminar-venta/<int:id>", deleteTransaction, name="deleteTransaction"),
 ]

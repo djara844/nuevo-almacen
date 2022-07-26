@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Productos</title>
+</head>
+<body>
+    <h1>Nuevo Almacen</h1>
+    <div>
+        <a href="{% url 'newProduct' %}">Nuevo producto</a>
+    </div>
+
+    <div>
+        Núemero de productos:
+        {{no_products}}
+    </div>
+    <div>
+        <table border="1">
+            <thead>
+                <tr>
+                    <th>
+                        Id
+                    </th>
+                    <th>
+                        Nombre del producto
+                    </th>
+                    <th>
+                        Costo
+                    </th>
+                    <th>
+                        Stock
+                    </th>
+                    <th>
+                        Acción
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for product in products %}
+                <tr>
+                    <td>
+                        {{ product.id }}
+                    </td>
+                    <td>
+                        {{ product.name }}
+                    </td>
+                    <td>
+                        {{ product.price }}
+                    </td>
+                    <td>
+                        {{ product.stock }}
+                    </td>
+                    <td><a href="{% url 'productDetail' product.id %}">Ver</a></td>
+                    <td><a href="{% url 'editProduct' product.id %}">Editar</a></td>
+                    <td><a href="{% url 'deleteProduct' product.id %}">Eliminar</a></td>
+                    
+                </tr>
+                   
+                {% endfor %}
+            </tbody>
+        </table>
+        
+    </div>
+
+    <a href="{% url 'index' %}">Home</a>
+    
+</body>
+</html>

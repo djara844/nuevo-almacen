@@ -21,6 +21,7 @@ class TransactionAdmin(admin.ModelAdmin):
     inlines = [TransactionProductInline]
     list_display = ("id", "customer", "is_invoice", "total")
 
+
 # Join models Cashregister and CashregisterProduct
 class CashregisterProductInline(admin.StackedInline):
     model = CashregisterProduct
@@ -31,6 +32,7 @@ class CashregisterAdmin(admin.ModelAdmin):
     inlines = [CashregisterProductInline]
     list_display = ("id", "detail", "total")
 
+
 # Join models Debt and CashregisterProduct
 class DebtProductInline(admin.StackedInline):
     model = DebtProduct
@@ -39,7 +41,7 @@ class DebtProductInline(admin.StackedInline):
 
 class DebtAdmin(admin.ModelAdmin):
     inlines = [DebtProductInline]
-    list_display= ("id", "detail", "expiration_date", "supplier", "pail", "total")
+    list_display = ("id", "detail", "expiration_date", "supplier", "pail", "total")
 
 
 admin.site.register(Category)

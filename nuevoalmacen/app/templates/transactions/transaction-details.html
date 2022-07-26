@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalles Factura</title>
+</head>
+<body>
+    <h1>Detalles de la venta</h1>
+    <div>
+        Id venta: {{ transaction.id}}
+    </div>
+    <div>
+        Total: {{ transaction.total}}
+    </div>
+    <div>
+        Cliente: {{ transaction.customer}}
+    </div>
+    <div>
+        ¿Facturable?: {{ transaction.is_invoice}}
+    </div>
+    <div>
+        ¿Esta paga?: {{ transaction.paid}}
+    </div>
+    <div>
+        Detalles: {{ transaction.details}}
+    </div>
+
+    <div>
+        <h2>Info Productos</h2>
+        <div>
+            Productos: 
+            <hr>
+            <ul>
+                {% for product in products %}
+                    <li>
+                        {{ product.name }}
+                    </li>
+                    <li>
+                        {{ product.price }}
+                    </li>
+                    <hr>
+                {% endfor %}
+            </ul>
+               
+           
+                
+        </div>
+    </div>
+
+    <a href="{% url 'transactions' %}">Ventas</a>
+    
+</body>
+</html>
